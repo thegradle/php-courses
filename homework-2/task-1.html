@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .item {
+      background: gray;
+      color: #fff;
+      font-size: 32px;
+      padding: 25px;
+      border-radius: 18px;
+    }
+
+    .item--white {
+      background: #fff;
+      color: gray;
+    }
+
+    .item-a {
+      grid-area: a;
+    }
+
+    .item-b {
+      grid-area: b;
+    }
+
+    .item-c {
+      grid-area: c;
+    }
+
+    .item-d {
+      grid-area: d;
+    }
+    
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr 1fr;
+      grid-template-rows: 200px 400px;
+      grid-template-areas: 
+        "a a . b"
+        "c d d d";
+      grid-gap: 15px;
+    }
+
+    .box-item-e {
+      grid-area: box-e;
+    }
+
+    .box-item-f {
+      grid-area: box-f;
+    }
+
+    .box-item-g {
+      grid-area: box-g;
+    }
+
+    .box {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 2fr 1fr 2fr;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas: 
+        "box-e box-f box-f"
+        "box-e . box-g";
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="item item-a">A</div>
+    <div class="item item-b">B</div>
+    <div class="item item-c">C</div>
+    <div class="item item-d">
+      <div class="box">
+        <div class="item item--white box-item-e">E</div>
+        <div class="item item--white box-item-f">F</div>
+        <div class="item item--white box-item-g">G</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
