@@ -9,19 +9,27 @@
     p.new:before {
       content: '1';
     }
-    abbr::first-line {
+
+    abbr {
+      display: block;
+    }
+
+    abbr:first-line {
       color: blue;
     }
+
     p.new.back:after {
       content: '2';
     }
+
     div:before {
-      content: '312';
+      content: '3text';
     }
 
     div::first-letter {
       font-size: 25px;
     }
+
     a:hover:before {
       content: '4';
     }
@@ -29,12 +37,12 @@
 </head>
 <body>
   <p class="new back">
-    TEST1
+    Lorem ipsum dolor sit amet.
     <div class="back">
-      TEST3
+      Lorem, ipsum dolor.
     </div>
   </p>
-  <abbr title="testtest2">TEST2</abbr>
-  <a href="">asdasd</a>
+  <abbr title="testtest2">Lorem ipsum dolor sit amet consectetur, adipisicing elit.<br>Maxime debitis, est consectetur optio mollitia omnis?</abbr>
+  <a href=""> <- is 4</a>
 </body>
 </html>
