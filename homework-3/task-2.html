@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <h1>To-do list</h1>
+    <div class="list">
+      <input type="text" placeholder="Enter your task here..." v-model="newTask">
+      <button @click="addTask">+</button>
+      <p v-for="task in tasks">
+        {{ task }}
+        <button @click="removeTask(task)">X</button>
+      </p>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@next"></script>
+  <script>
+    const App = {
+      data() {
+        return {
+          tasks: ['Зробити to-do list', 'Заповнити to-do сьогодні ввечорі', 'Виконати всі завдання з to-do'],
+          newTask: ''
+        }
+      },
+      methods: {
+        removeTask(task) {
+          this.tasks.splice(this.tasks.indexOf(task), 1);
+        },
+
+        addTask() {
+          this.tasks.unshift(this.newTask);
+          this.newTask = '';
+        }
+      }
+    }
+
+    Vue.createApp(App).mount('#app');
+  </script>
+</body>
+</html>

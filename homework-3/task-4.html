@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+	<style>
+		form input:not(input[type="radio"]) {
+			display: block;
+			margin-bottom: 7px;
+		}
+
+    p {
+      color: red;
+    }
+	</style>
+</head>
+<body>
+  <div id="app">
+    <h1>Реєстрація</h1>
+    <form :style="bg">
+			<input type="text" placeholder="Ім'я" required @focusout="nameValidate" @input="nameValidate" v-model="name"><p id="nameError"></p>
+			<input type="text" placeholder="Прізвище" required @focusout="surnameValidate" @input="surnameValidate" v-model="surname"><p id="surnameError"></p>
+			<input type="radio" name="sex" id="male" value="male" v-model="sex"><label for="male">Чоловік</label>
+			<input type="radio" name="sex" id="female" value="female" v-model="sex"><label for="female">Жінка</label>
+			<input type="radio" name="sex" id="other" value="other" v-model="sex" checked><label for="other">Інше</label>
+			<input type="text" placeholder="Телефонний номер" required @focusout="telValidate" @input="telValidate" v-model="tel"><p id="telError"></p>
+			<input type="text" placeholder="Логін" required @focusout="loginValidate" @input="loginValidate" v-model="login"><p id="loginError"></p>
+		</form>
+  </div>
+
+  <script src="https://unpkg.com/vue@next"></script>
+  <script>
+    const App = {
+      data() {
+        return {
+          bg: '',
+          name: '',
+          surname: '',
+          sex: '',
+          tel: '',
+          login: ''
+        }
+      },
+      methods: {
+        nameValidate() {
+          if (!this.name) {
+            document.querySelector('#nameError').innerHTML = 'Введіть ім\'я';
+          } else {
+            document.querySelector('#nameError').innerHTML = '';
+          }
+        },
+
+        surnameValidate() {
+          if (!this.surname) {
+            document.querySelector('#surnameError').innerHTML = 'Введіть прізвище';
+          } else {
+            document.querySelector('#surnameError').innerHTML = '';
+          }
+        },
+
+        telValidate() {
+          if (!this.tel) {
+            document.querySelector('#telError').innerHTML = 'Введіть номер телефону';
+          } else {
+            if (!this.tel.match(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/)) {
+              document.querySelector('#telError').innerHTML = 'Телефон введено не вірно';
+            } else {
+              document.querySelector('#telError').innerHTML = '';
+            }
+          }
+        },
+
+        loginValidate() {
+          if (!this.login) {
+            document.querySelector('#loginError').innerHTML = 'Введіть логін';
+          } else {
+            if (!this.login.match(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/)) {
+              document.querySelector('#loginError').innerHTML = 'Логін введено не вірно';
+            } else {
+              document.querySelector('#loginError').innerHTML = '';
+            }
+          }
+        }
+      },
+      watch: {
+				sex(value) {
+					if (value == 'male') {
+						this.bg = 'background: blue; color: white;';
+					} else if (value == 'female') {
+						this.bg = 'background: pink';
+					} else {
+						this.bg = 'background: white';
+					}
+				}
+			},
+    }
+
+    Vue.createApp(App).mount('#app');
+  </script>
+</body>
+</html>

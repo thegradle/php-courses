@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #test_bind {
+      background: yellowgreen;
+    }
+
+    .class_bind {
+      text-align: center;
+    }
+
+    .test {
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>Лічільник: {{ counter }}</h1>
+    <p v-if="counter > max">Максимальна кількість: {{ max }}</p>
+    <button @click="counter++">Додати</button>
+    <button v-on:click="counter--">Відняти</button>
+  </div>
+  <div id="app2">
+    <div v-bind="Styles">Hello, world!</div>
+  </div>
+  <div id="app3">
+    <h1>{{ header }}</h1>
+    <button @click="Reverse">Reverse</button>
+  </div>
+  <div id="app4">
+    <p :style="{color}" @click="ChangeColor">Lorem, ipsum.</p>
+  </div>
+  <div id="app5">
+    <h1>Лічільник: {{ counter }}</h1>
+    <button @click="increment">Додати</button>
+    <button @click="decrement">Відняти</button>
+    <div id="msg"></div>
+  </div>
+  <div id="app6">
+    <input :value="text" @input="onInput" placeholder="Type here...">
+    <p>{{ text }}</p>
+  </div>
+  <div id="app7">
+    <input v-model="text" placeholder="Type here...">
+    <p>{{ text }}</p>
+  </div>
+
+  <script src="https://unpkg.com/vue@next"></script>
+  <script>
+    const App = {
+      data() {
+        return {
+          counter: 0,
+          max: 3
+        }
+      }
+    }
+
+    const App2 = {
+      data() {
+        return {
+          Styles: {
+            id: 'test_bind',
+            class: 'class_bind test'
+          }
+        }
+      }
+    }
+
+    const App3 = {
+      data() {
+        return {
+          header: 'Hello, Ivan!'
+        }
+      },
+      methods: {
+        Reverse() {
+          this.header = this.header.split('').reverse().join('')
+        }
+      }
+    }
+
+    const App4 = {
+      data() {
+        return {
+          color: 'yellow'
+        }
+      },
+      methods: {
+        ChangeColor() {
+          this.color = this.color === 'yellow' ? 'blue' : 'yellow'
+        }
+      }
+    }
+
+    const App5 = {
+      data() {
+        return {
+          counter: 0,
+          max: 3
+        }
+      },
+      methods: {
+        increment() {
+          document.querySelector('#msg').innerHTML = '';
+
+          if (this.counter < this.max) {
+            this.counter++;
+          }
+        },
+
+        decrement() {
+          if (this.counter != 0) {
+            this.counter--;
+          } else {
+            document.querySelector('#msg').innerHTML = 'Менше не можна!';
+          }
+        }
+      }
+    }
+
+    const App6 = {
+      data() {
+        return {
+          text: ''
+        }
+      },
+      methods: {
+        onInput(e) {
+          this.text = e.target.value
+        }
+      }
+    }
+
+    const App7 = {
+      data() {
+        return {
+          text: ''
+        }
+      }
+    }
+
+    Vue.createApp(App).mount('#app');
+    Vue.createApp(App2).mount('#app2');
+    Vue.createApp(App3).mount('#app3');
+    Vue.createApp(App4).mount('#app4');
+    Vue.createApp(App5).mount('#app5');
+    Vue.createApp(App6).mount('#app6');
+    Vue.createApp(App6).mount('#app7');
+  </script>
+</body>
+</html>

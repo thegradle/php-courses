@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body id="app">
+  <div :style="bgColor">
+    <button @click="change">Змінити колір</button>
+    <p :style="textColor">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum magnam hic sequi? Placeat, nihil obcaecati?</p>
+  </div>
+
+  <script src="https://unpkg.com/vue@next"></script>
+  <script>
+    const App = {
+      data() {
+        return {
+          bgColor: 'background: yellow',
+          textColor: 'color: blue',
+          counter: 0
+        }
+      },
+      methods: {
+        change() {
+          if (this.counter < 4) {
+            this.bgColor = this.bgColor === 'background: yellow' ? 'background: blue' : 'background: yellow';
+            this.textColor = this.textColor === 'color: blue' ? 'color: yellow' : 'color: bluew';
+            this.counter++;
+          } else {
+            document.querySelector("div").innerHTML = "Досить бавитись!";
+          }
+        }
+      }
+    }
+
+    Vue.createApp(App).mount('#app');
+  </script>
+</body>
+</html>
