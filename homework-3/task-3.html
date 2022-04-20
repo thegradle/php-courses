@@ -65,7 +65,7 @@
             document.querySelector('#telError').innerHTML = 'Введіть номер телефону';
           } else {
             if (!this.tel.match(/.*(\d{3})[ -]?(\d{3})[ -]?(\d{4})/)) {
-              document.querySelector('#telError').innerHTML = 'Телефон введено не вірно';
+              document.querySelector('#telError').innerHTML = 'Телефон введено не вірно!';
             } else {
               document.querySelector('#telError').innerHTML = '';
             }
@@ -76,8 +76,8 @@
           if (!this.login) {
             document.querySelector('#loginError').innerHTML = 'Введіть логін';
           } else {
-            if (!this.login) { // regex is not done
-              document.querySelector('#loginError').innerHTML = 'Логін введено не вірно';
+            if (/[A-Z]/.test(!this.login) && /[_]/.test(!this.login) && /\d\d\d$/.test(!this.login)) {
+              document.querySelector('#loginError').innerHTML = 'Логін введено не вірно! Він має містити одну велику літеру, один символ підкреслення та 3 цифри наприкінці!';
             } else {
               document.querySelector('#loginError').innerHTML = '';
             }
