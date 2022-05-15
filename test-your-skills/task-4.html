@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .error {
+      color: #ff0000;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>Співробітники</h1>
+    <div class="list">
+      <table border="1">
+        <tr>
+          <td>№</td>
+          <td>Прізвище ім'я</td>
+          <td>Телефон</td>
+          <td>Відділ</td>
+        </tr>
+        <tr v-for="person in people">
+          <td>{{ person.id }}</td>
+          <td>{{ person.name }}</td>
+          <td>{{ person.tel }}</td>
+          <td>{{ person.department }}</td>
+        </tr>
+      </table>
+    </div>
+    <br><br><br>
+    <button @click="showPanel = !showPanel">Додати співробітника</button>
+    <br><br>
+    <div class="form" v-if="showPanel">
+      <input type="text" placeholder="Прізвище ім'я" v-model="name" @focusout="nameValidate" @input="nameValidate"><span class="error">{{ nameError }}</span><br>
+      <input type="tel" placeholder="Телефон" v-model="tel" @focusout="telValidate" @input="telValidate"><span class="error">{{ telError }}</span><br>
+      <input type="text" placeholder="Відділ" v-model="department" @focusout="departmentValidate" @input="departmentValidate"><span class="error">{{ departmentError }}</span><br>
+      <button @click="addPerson">Зберегти</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@next"></script>
+  <script>
+    let id = 1;
+
+    const App = {
+      data() {
+        return {
+          people: [],
+          name: '',
+          tel: '',
+          department: '',
+          showPanel: false,
+          nameError: '',
+          telError: '',
+          departmentError: ''
+        }
+      },
+      methods: {
+        nameValidate() {
+          if (!this.name) {
+            this.nameError = 'Введіть ім\'я!';
+            return false;
+          } else {
+            this.nameError = '';
+          }
+
+          return true;
+        },
+
+        telValidate() {
+          if (!this.tel) {
+            this.telError = 'Введіть номер телефону!';
+          } else {
+            if (!this.tel.match(/.*(\d{3})[ -]?(\d{3})[ -]?(\d{4})/)) {
+              this.telError = 'Телефон введено не вірно!';
+            } else {
+              this.telError = '';
+              return true;
+            }
+
+            return false;
+          }
+        },
+
+        departmentValidate() {
+          if (!this.department) {
+            this.departmentError = 'Введіть відділ!';
+            return false;
+          } else {
+            this.departmentError = '';
+          }
+
+          return true;
+        },
+
+        addPerson() {
+          this.nameValidate();
+          this.telValidate();
+          this.departmentValidate();
+
+          if (this.nameValidate() && this.telValidate() && this.departmentValidate()) {
+            this.people.push({ id: id++, name: this.name, tel: this.tel, department: this.department });
+            this.name = ''
+            this.tel = '';
+            this.department = '';
+          }
+        }
+      }
+    }
+
+    Vue.createApp(App).mount('#app');
+  </script>
+</body>
+</html>
